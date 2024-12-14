@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!--These three script tags are including three JS libraries so we can use React-->
+        <script src="https://unpkg.com/react@17/umd/react.production.min.js" crossorigin></script>
+        <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js" crossorigin></script>
+        <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+        <style>
+            #app {
+                text-align: center;
+                font-family: sans-serif;
+            }
+
+            #problem {
+                font-size: 72px;
+            }
+
+            .incorrect {
+                color: red;
+            }
+
+            #winner {
+                font-size: 72px;
+                color: green;
+            }
+        </style>
+        <title>Counter</title>
+    </head>
+    <body>
+        <div id="app"></div>
+        <script type="text/babel">
+            
+            function App() {                
+                
+                // Create a JavaScript object with a key-value structure.
+                // Keys are num1, num2 and response
+                const [state, setState] = React.useState({
+                    num1: 2,
+                    num2: 4,
+                    response: "",
+                    score: 0,
+                    incorrect: false
+                });
+
+                function inputKeyPress(event) {
+                    // If the key pressed is enter and only enter
+                    if (event.key === "Enter") {
+                        // parseInt is a JavaScript function that tries to convert a string to int
+                        // convert string to int and store it in variable answer
+                        const answer = parseInt(state.response);
+                        // numbers to trigger a new question
+                        // Validate if the sum of both states equal the response from the user
+                        if (state.num1 + state.num2 === answer) {
+                            // User got question right
+                            setState({
+                                ...state,
+                                // Everytime the user gets the question right, generate two random 
+                                num1: Math.ceil(Math.random() * 10),
+                                num2: Math.ceil(Math.random() * 10),
+                                // Add 1 to the user's score
+                                score: state.score + 1,
+                                // Clear the response input
+                                response: "",
+                                incorrect: false
+                            });
+                        } else {
+                            // User got question wrong
+                            setState({
+                                ...state,
+                                score: state.score - 1,
+                                response: "",
+                                incorrect: true
+                            })
+                        }
+                    }
+                }
+
+                function updateResponse(event) {
+                    setState({
+                        // This is a spread operator
+                        // This line says: Keep everything the same state it already has
+                        ...state,
+                        // This line says: except the response. For the response, take the 
+                        // value from the event in the input that the user typed
+                        response: event.target.value
+                    });
+                }
+
+                if (state.score === 10) {
+                    return (
+                        <div id="winner">
+                            You won!    
+                        </div>
+                    );
+                }
+  
+                return (
+                    <div>
+                        {/*This line of code says: className={state.incorrect ? "incorrect"}
+                        if state.incorrect is true, then set the className to "incorrect"
+                        otherwise just assign an empty string class*/}
+                        <div className={state.incorrect ? "incorrect" : ""} id="problem">{state.num1} + {state.num2}</div>
+                        {/*The input triggers two functions, inputKeyPress and updateResponse
+                            These two functions are declared above
+                            It also sets the state for the response*/}
+                        <input autoFocus={true} onKeyPress={inputKeyPress} onChange={updateResponse} value={state.response} />
+                        <div>Score: {state.score}</div>
+                    </div>
+                );
+            }
+            
+            ReactDOM.render(<App />, document.querySelector("#app"));
+        </script>
+
+    </body>
+</html>

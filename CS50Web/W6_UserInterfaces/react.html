@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!--These three script tags are including three JS libraries so we can use React-->
+        <script src="https://unpkg.com/react@17/umd/react.production.min.js" crossorigin></script>
+        <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js" crossorigin></script>
+        <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+        <title>React</title>
+    </head>
+    <body>
+        
+        <!--// This is where the application is going to go-->
+        <div id="app"></div>
+        
+        <!--// This line tells the browser it needs to translate this JSX code into JS-->
+        <!--// In practice, we'd need to do this translation ahead of time, prior to deploying the app-->
+        <script type="text/babel">
+            
+            // All React applications are composed of components. 
+            // A component is just part of the app's UI. Components are described using a JS function
+            function App() {
+                // All functions need to return something. When using React and JSX, we return what will 
+                // appeat inside of that component
+                return (
+                    // This is the power of JSX, it gives us the ability to write HTML like syntax 
+                    // inside of JavaScript code and JSX will understand it
+                    <div>Hello, world!</div>
+                );
+            }
+            
+            // We need this line to render this component into the page
+            // First argument is, what component do I want to render? The component is the "function App()" component
+            // That we just created above. We add it using the HTML like syntax
+            // Second argument is, where on the page do I want to render this component?  
+            // In this case, we want to render it in the first div of the body with id "app" in line 13
+            // We add it using JavaScript code, trying to app the element with an id of app
+            ReactDOM.render(<App />, document.querySelector("#app"));
+        </script>
+    </body>
+</html>
