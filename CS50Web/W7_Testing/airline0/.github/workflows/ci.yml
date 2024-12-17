@@ -1,12 +1,22 @@
+# Name of the workflow
 name: Testing
+# Specify an on key, which means, when do we want to run this workflow
 on: push
 
 jobs:
+  # You can choose any name for a job
   test_project:
+    # We need to specify two things, 1. The machine it will run on. GitHub has
+    # its own virtual machines
     runs-on: ubuntu-latest
+    # 2. The steps that will take place
     steps:
+      # This is a GitHub Action written by GitHub. It will specifically check out
+      # the code and allow us to run some programs on the code
     - uses: actions/checkout@v2
+    # Name for the set of actions that whill take place, just a description
     - name: Run Django unit tests
+      # First install django, second, run python3 manage.py test
       run: |
         pip3 install --user django
         python3 manage.py test
