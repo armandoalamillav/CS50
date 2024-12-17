@@ -1,12 +1,24 @@
+# Specify that we're using version 3 of Docker Compose
 version: '3'
 
+# Using YAML, we are specifying the services we want to compose
+# and allow to work together
+# Each service is going to have its own container that could be based 
+# on a different docker image
 services:
+    # One service for the db, based on the postgres image
     db:
         image: postgres
 
+    # One service for the web app
     web:
+        # Based on the docker file from my current directory
         build: .
+        # Specify what my current directory actually is
         volumes:
             - .:/usr/src/app
+        # Specify what port to use when I'm running in my own computer. 
+        # I want port 8000 from the container to correspond with 
+        # port 8000 from my computer
         ports:
             - "8000:8000"
