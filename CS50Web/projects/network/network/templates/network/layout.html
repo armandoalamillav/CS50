@@ -19,9 +19,17 @@
                         <a class="nav-link" href="#"><strong>{{ user.username }}</strong></a>
                     </li>
                 {% endif %}
+
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'new_post' %}">New Post</a>
+                    </li>
+                {% endif %}
+                
                 <li class="nav-item">
                   <a class="nav-link" href="{% url 'index' %}">All Posts</a>
                 </li>
+                
                 {% if user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link" href="#">Following</a>
@@ -37,7 +45,8 @@
                         <a class="nav-link" href="{% url 'register' %}">Register</a>
                     </li>
                 {% endif %}
-              </ul>
+              
+            </ul>
             </div>
           </nav>
         

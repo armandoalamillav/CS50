@@ -1,5 +1,15 @@
 {% extends "network/layout.html" %}
 
 {% block body %}
-    TODO
+    <h2>Feed</h2>
+
+    <div id="new-post">
+        <h3>New Post</h3>
+        <form id="new-post-form" name="new-post-form">
+            <div class="form-group">
+                <textarea class="form-control" id="compose-body" placeholder="What is happening?"></textarea>
+                <input id="compose-submit" type="submit" class="btn btn-primary" value="Post"/>
+            </div>
+        </form>
+    </div>
 {% endblock %}
